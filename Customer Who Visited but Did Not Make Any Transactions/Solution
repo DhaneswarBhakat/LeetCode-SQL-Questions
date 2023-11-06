@@ -1,0 +1,9 @@
+SELECT customer_id, 
+       SUM(CASE WHEN transaction_id IS NULL THEN 1 ELSE 0 END) AS count_no_trans
+FROM (
+    SELECT v.customer_id, t.transaction_id
+    FROM Visits v
+    LEFT JOIN Transactions t ON v.visit_id = t.visit_id
+) subquery
+GROUP BY customer_id
+HAVING SUM(CASE WHEN transaction_id IS NULL THEN 1 ELSE 0 END) > 0;
