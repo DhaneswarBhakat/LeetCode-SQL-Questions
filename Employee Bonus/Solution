@@ -1,0 +1,8 @@
+SELECT E.name, 
+       CASE 
+           WHEN B.bonus IS NULL THEN 'null'
+           ELSE CAST(B.bonus AS VARCHAR)
+       END AS bonus
+FROM Employee E
+LEFT JOIN Bonus B ON E.empId = B.empId
+WHERE B.bonus < 1000 OR B.bonus IS NULL;
